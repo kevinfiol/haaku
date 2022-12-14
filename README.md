@@ -4,7 +4,6 @@ Kinda like a minimal Immer.
 
 ```js
 import { from } from 'haaku';
-import { strict as assert } from 'assert';
 
 const people = {
   kevin: { age: 29, pets: ['maggie'] },
