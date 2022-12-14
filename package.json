@@ -9,7 +9,6 @@
   "main": "dist/haaku.cjs",
   "module": "dist/haaku.js",
   "unpkg": "dist/haaku.min.js",
-  "types": "index.d.ts",
   "umd:name": "haaku",
   "scripts": {
     "test": "node test.js",
