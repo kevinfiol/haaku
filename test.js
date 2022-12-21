@@ -39,4 +39,16 @@ test('spread operators', () => {
   assert.deepEqual(bar.arr, [1,2,3]);
 });
 
+test('non objects/array should throw', () => {
+  let thrown = false;
+
+  try {
+    const foo = from('not an obj or arr', draft => {});
+  } catch (_e) {
+    thrown = true;
+  }
+
+  assert.ok(thrown);
+})
+
 run();

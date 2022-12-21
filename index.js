@@ -28,7 +28,8 @@ function makeProxy(target, _proxy) {
 }
 
 export function from(obj, fn) {
-  let tmp, newObj = Array.isArray(obj) ? [ ...obj] : { ...obj };
+  let tmp, newObj = isArray(obj) ? [ ...obj] : isObj(obj) ? { ...obj } : 0;
+  if (!newObj) throw Error('You can only copy objects or arrays.');
   fn(makeProxy(newObj));
   while (tmp = PROXIES.pop()) CACHE.delete(tmp);
   return newObj;
