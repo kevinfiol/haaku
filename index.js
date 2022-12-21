@@ -1,18 +1,35 @@
+let PROXIES = [],
+  CACHE = new WeakMap(),
+  isArray = Array.isArray,
+  isObj = x => x && Object.getPrototypeOf(x) === Object.prototype;
+
 let handler = {
-  get(obj, k) {
-    let v = obj[k],
-      isArr = Array.isArray(v),
-      dive = v && Object.getPrototypeOf(v) === Object.prototype || isArr;
+  get(target, name, receiver, _value) {
+    if (!Object.hasOwn(target, name) || isArray(target) && name === 'length')
+      return Reflect.get(target, name, receiver)
 
-    if (isArr) obj[k] = [ ...v ];
-    else if (dive) obj[k] = { ...v };
+    if (CACHE.has(_value = target[name]))
+      return CACHE.get(_value)
 
-    return dive ? new Proxy(obj[k], handler) : v;
+    let isArr = isArray(_value),
+      dive = isObj(_value) || isArr;
+
+    if (isArr) target[name] = [ ..._value ];
+    else if (dive) target[name] = { ..._value };
+
+    return dive ? makeProxy(target[name]) : _value;
   }
-};
+}
+
+function makeProxy(target, _proxy) {
+  _proxy = CACHE.get(target) || new Proxy(target, handler)
+  if (!CACHE.has(target)) PROXIES.push(target) && CACHE.set(target, _proxy);
+  return _proxy;
+}
 
 export function from(obj, fn) {
-  let n = { ...obj };
-  fn(new Proxy(n, handler));
-  return n;
+  let tmp, newObj = Array.isArray(obj) ? [ ...obj] : { ...obj };
+  fn(makeProxy(newObj));
+  while (tmp = PROXIES.pop()) CACHE.delete(tmp);
+  return newObj;
 }

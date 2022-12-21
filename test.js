@@ -4,7 +4,7 @@ import { strict as assert } from 'assert';
 
 const test = suite('haaku tests');
 
-test('test object equality', () => {
+test('object equality', () => {
   const people = {
     kevin: { age: 29, pets: ['maggie'] },
     rafael: { age: 31, pets: ['flitch', 'haku'] }
@@ -20,6 +20,23 @@ test('test object equality', () => {
   assert.deepEqual(people.rafael, updated.rafael, 'unchanged objects should be equal');
   assert.equal(updated.kevin.age, 30);
   assert.deepEqual(updated.kevin.pets, ['maggie', 'trixie']);
+});
+
+test('spread operators', () => {
+  const foo = {
+    obj: { a: 1, b: 2 },
+    arr: [1, 2]
+  };
+
+  const bar = from(foo, draft => {
+    draft.obj = {...draft.obj, c: 3};
+    draft.arr = [...draft.arr, 3];
+  });
+
+  assert.deepEqual(foo.obj, { a: 1, b: 2 });
+  assert.deepEqual(foo.arr, [1,2]);
+  assert.deepEqual(bar.obj, { a: 1, b: 2, c: 3});
+  assert.deepEqual(bar.arr, [1,2,3]);
 });
 
 run();
