@@ -39,4 +39,4 @@ console.log(updated.kevin.pets); // ['maggie', 'trixie']
 
 ## Credits
 
-See [clean-set](https://github.com/fwilkerson/clean-set) and (obviously) [Immer](https://github.com/immerjs/immer).
+Thank you [pygy](https://github.com/pygy) for his wisdom in fixing a major bug. Inspired by [clean-set](https://github.com/fwilkerson/clean-set) and (obviously) [Immer](https://github.com/immerjs/immer).
