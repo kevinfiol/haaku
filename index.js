@@ -6,10 +6,10 @@ let PROXIES = [],
 let handler = {
   get(target, name, receiver, _value, _dive) {
     if (!Object.hasOwn(target, name) || isArray(target) && name === 'length')
-      return Reflect.get(target, name, receiver)
+      return Reflect.get(target, name, receiver);
 
     if (CACHE.has(_value = target[name]))
-      return CACHE.get(_value)
+      return CACHE.get(_value);
 
     if (_dive = isArray(_value)) target[name] = [ ..._value ];
     else if (_dive = isObj(_value)) target[name] = { ..._value };
@@ -19,7 +19,7 @@ let handler = {
 }
 
 function makeProxy(target, _proxy) {
-  _proxy = CACHE.get(target) || new Proxy(target, handler)
+  _proxy = CACHE.get(target) || new Proxy(target, handler);
   if (!CACHE.has(target)) PROXIES.push(target) && CACHE.set(target, _proxy);
   return _proxy;
 }
