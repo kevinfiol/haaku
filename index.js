@@ -1,7 +1,11 @@
-let PROXIES = [],
-  CACHE = new WeakMap(),
+let PROXIES, CACHE,
   isArray = Array.isArray,
-  isObj = x => x && Object.getPrototypeOf(x) === Object.prototype;
+  isObj = x => x && Object.getPrototypeOf(x) === Object.prototype,
+  init = x => {
+    x = isArray(x) ? [ ...x ] : isObj(x) ? { ...x } : 0;
+    if (!x) throw Error('You can only copy objects or arrays.');
+    return x;
+  };
 
 let handler = {
   get(target, name, receiver, _value, _dive) {
@@ -19,15 +23,32 @@ let handler = {
 }
 
 function makeProxy(target, _proxy) {
+  PROXIES = PROXIES || [];
+  CACHE = CACHE || new WeakMap();
   _proxy = CACHE.get(target) || new Proxy(target, handler);
   if (!CACHE.has(target)) PROXIES.push(target) && CACHE.set(target, _proxy);
   return _proxy;
 }
 
 export function from(obj, fn) {
-  let tmp, newObj = isArray(obj) ? [ ...obj] : isObj(obj) ? { ...obj } : 0;
-  if (!newObj) throw Error('You can only copy objects or arrays.');
+  let tmp, newObj = init(obj);
   fn(makeProxy(newObj));
   while (tmp = PROXIES.pop()) CACHE.delete(tmp);
   return newObj;
+}
+
+export function merge(obj, ...patches) {
+  obj = init(obj);
+
+  for (let patch of patches) {
+    for (let k in patch) {
+      let v = patch[k];
+      if (typeof v === 'function') obj[k] = v(obj[k]);
+      else if (isObj(v) && isObj(obj[k])) obj[k] = merge(obj[k], v);
+      else if (v === void 0) delete obj[k];
+      else obj[k] = v;
+    }
+  }
+
+  return obj;
 }
