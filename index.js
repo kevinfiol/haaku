@@ -30,11 +30,10 @@ function makeProxy(target, _proxy) {
   return _proxy;
 }
 
-export function from(obj, fn) {
-  let tmp, newObj = init(obj);
-  fn(makeProxy(newObj));
-  while (tmp = PROXIES.pop()) CACHE.delete(tmp);
-  return newObj;
+export function from(obj, fn, _tmp) {
+  fn(makeProxy(obj = init(obj)));
+  while (_tmp = PROXIES.pop()) CACHE.delete(_tmp);
+  return obj;
 }
 
 export function merge(obj, ...patches) {
