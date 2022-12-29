@@ -12,7 +12,8 @@
   "umd:name": "haaku",
   "scripts": {
     "test": "node test.js",
-    "prepare": "bundt index.js && node test.js"
+    "build": "bundt index.js && node test.js",
+    "prepare": "npm build"
   },
   "engines": {
     "node": ">=12.x"

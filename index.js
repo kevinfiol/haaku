@@ -4,20 +4,17 @@ let PROXIES = [],
   isObj = x => x && Object.getPrototypeOf(x) === Object.prototype;
 
 let handler = {
-  get(target, name, receiver, _value) {
+  get(target, name, receiver, _value, _dive) {
     if (!Object.hasOwn(target, name) || isArray(target) && name === 'length')
       return Reflect.get(target, name, receiver)
 
     if (CACHE.has(_value = target[name]))
       return CACHE.get(_value)
 
-    let isArr = isArray(_value),
-      dive = isObj(_value) || isArr;
+    if (_dive = isArray(_value)) target[name] = [ ..._value ];
+    else if (_dive = isObj(_value)) target[name] = { ..._value };
 
-    if (isArr) target[name] = [ ..._value ];
-    else if (dive) target[name] = { ..._value };
-
-    return dive ? makeProxy(target[name]) : _value;
+    return _dive ? makeProxy(target[name]) : _value;
   }
 }
 

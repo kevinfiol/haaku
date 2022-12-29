@@ -37,6 +37,9 @@ console.log(updated.kevin.age); // 30
 console.log(updated.kevin.pets); // ['maggie', 'trixie']
 ```
 
+## TODO
+* Objects are shallow cloned on every "get"; for efficiency, this should only be done on "set"
+
 ## Credits
 
 Thank you [pygy](https://github.com/pygy) for his wisdom in fixing a major bug. Inspired by [clean-set](https://github.com/fwilkerson/clean-set) and (obviously) [Immer](https://github.com/immerjs/immer).

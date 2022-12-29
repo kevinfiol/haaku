@@ -49,6 +49,6 @@ test('non objects/array should throw', () => {
   }
 
   assert.ok(thrown);
-})
+});
 
 run();
