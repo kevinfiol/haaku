@@ -20,7 +20,7 @@ let handler = {
 
     return _dive ? makeProxy(target[name]) : _value;
   }
-}
+};
 
 function makeProxy(target, _proxy) {
   PROXIES = PROXIES || [];
