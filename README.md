@@ -97,7 +97,7 @@ In cases where you'd like to make changes to an existing array, you can use the 
 
 ```js
 const a = { nums: [1, 2, 3] };
-const b = merge(a, { nums: prev =>  [...prev, 4, 5, 6] });
+const b = merge(a, { nums: prev => [...prev, 4, 5, 6] });
 console.log(b); // { nums: [1, 2, 3, 4, 5, 6] }
 ```
 
@@ -128,7 +128,7 @@ const a = { nums: [1, 2, 3] };
 
 const b = merge(a, {
   nums: prev => from(prev, draft => {
-    draft.push(4)
+    draft.push(4);
   })
 });
 
