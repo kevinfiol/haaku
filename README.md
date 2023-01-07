@@ -18,9 +18,7 @@ const people = {
 };
 ```
 
-We can use `from` or `merge` to produce a new object whilst leaving the original object intact. Both examples below are functionally equivalent.
-
-### `from`
+We can use `from` or `merge` to produce a new object whilst leaving the original object intact. Both examples below are practically equivalent.
 
 ```js
 import { from } from 'haaku';
@@ -32,9 +30,7 @@ const updated = from(people, draft => {
 });
 ```
 
-### `merge`
-
-Note: Array properties are not deep merged.
+or
 
 ```js
 import { merge } from 'haaku';
@@ -43,7 +39,7 @@ const updated = merge(people, {
   kevin: {
     age: 30,
     // use function patches to update a property based on its previous value
-    pets: (prev) => [...prev, 'trixie'],
+    pets: prev => [...prev, 'trixie'],
     // set a property to `undefined` to remove it from the object
     trash: undefined
   }
@@ -69,6 +65,73 @@ console.log(people.kevin === updated.kevin) // false
 console.log(updated.kevin.age); // 30
 console.log(updated.kevin.pets); // ['maggie', 'trixie']
 console.log('trash' in updated.kevin); // false
+```
+
+## API
+
+### `from(obj: Object, (draft: Proxy) => undefined): Object`
+
+`from` accepts two arguments:
+
+1. An object that will be used as the base; this object will remain unmutated
+2. A recipe function to produce a new object
+
+### `merge(obj: Object, ...patches: Object[]): Object`
+
+`merge` accepts two or more arguments:
+
+1. An object that will be used as the base; this object will remain unmutated
+2. Any number of object patches; each patch will recursively be merged with the base state
+
+`merge` will not deep merge nested arrays:
+
+```js
+const a = { nums: [1, 2, 3] };
+const b = merge(a, { nums: [4, 5, 6] });
+console.log(b); // { nums: [4, 5, 6] }
+```
+
+In cases where you'd like to make changes to an existing array, you can use the spread operator in conjunction with function patches:
+
+```js
+const a = { nums: [1, 2, 3] };
+const b = merge(a, { nums: prev =>  [...prev, 4, 5, 6] });
+console.log(b); // { nums: [1, 2, 3, 4, 5, 6] }
+```
+
+If you require more robust functionality for merging arrays, I recommend [deepmerge](https://github.com/TehShrike/deepmerge#arraymerge) and its `arrayMerge` utilities.
+
+Note that function patches will be passed original references. Mutating these will mutate the original object:
+
+```js
+const a = { nums: [1, 2, 3] };
+
+const b = merge(a, {
+  nums: prev => {
+    prev.push(4); // don't do this
+    return prev;
+  }
+});
+
+console.log(a); // { nums: [1, 2, 3, 4] } The original object has been mutated! :(
+console.log(b); // { nums: [1, 2, 3, 4] }
+```
+
+In cases where you'd like the benefits of mutable objects without mutating the base object, you can use `from` in conjunction with `merge`:
+
+```js
+import { from, merge } from 'haaku';
+
+const a = { nums: [1, 2, 3] };
+
+const b = merge(a, {
+  nums: prev => from(prev, draft => {
+    draft.push(4)
+  })
+});
+
+console.log(a); // { nums: [1, 2, 3] } The original object is not mutated :)
+console.log(b); // { nums: [1, 2, 3, 4] }
 ```
 
 ## Credits
