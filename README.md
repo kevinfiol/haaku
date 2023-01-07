@@ -83,6 +83,8 @@ console.log('trash' in updated.kevin); // false
 1. An object that will be used as the base; this object will remain unmutated
 2. Any number of object patches; each patch will recursively be merged with the base state
 
+#### Caveats
+
 `merge` will not deep merge nested arrays:
 
 ```js
