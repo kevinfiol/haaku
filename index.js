@@ -7,25 +7,25 @@ let PROXIES, CACHE,
     return x;
   };
 
-let handler = {
-  get(target, name, receiver, _value, _dive) {
-    if (!Object.hasOwn(target, name) || isArray(target) && name === 'length')
-      return Reflect.get(target, name, receiver);
-
-    if (CACHE.has(_value = target[name]))
-      return CACHE.get(_value);
-
-    if (_dive = isArray(_value)) target[name] = [ ..._value ];
-    else if (_dive = isObj(_value)) target[name] = { ..._value };
-
-    return _dive ? makeProxy(target[name]) : _value;
-  }
-};
-
 function makeProxy(target, _proxy) {
   PROXIES = PROXIES || [];
   CACHE = CACHE || new WeakMap();
-  _proxy = CACHE.get(target) || new Proxy(target, handler);
+
+  _proxy = CACHE.get(target) || new Proxy(target, {
+    get(target, name, receiver, _value, _dive) {
+      if (!Object.hasOwn(target, name) || isArray(target) && name === 'length')
+        return Reflect.get(target, name, receiver);
+
+      if (CACHE.has(_value = target[name]))
+        return CACHE.get(_value);
+
+      if (_dive = isArray(_value)) target[name] = [ ..._value ];
+      else if (_dive = isObj(_value)) target[name] = { ..._value };
+
+      return _dive ? makeProxy(target[name]) : _value;
+    }
+  });
+
   if (!CACHE.has(target)) PROXIES.push(target) && CACHE.set(target, _proxy);
   return _proxy;
 }
