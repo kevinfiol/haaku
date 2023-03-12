@@ -119,7 +119,7 @@ console.log(a); // { nums: [1, 2, 3, 4] } The original object has been mutated! 
 console.log(b); // { nums: [1, 2, 3, 4] }
 ```
 
-In cases where you'd like the benefits of mutable objects without mutating the base object, you can use `from` in conjunction with `merge`:
+In cases where you'd like the benefits of mutable objects without mutating the base object, you can nest `from`:
 
 ```js
 import { from, merge } from 'haaku';
