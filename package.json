@@ -9,6 +9,7 @@
   "main": "dist/haaku.cjs",
   "module": "dist/haaku.js",
   "unpkg": "dist/haaku.min.js",
+  "types": "./index.d.ts",
   "umd:name": "haaku",
   "scripts": {
     "test": "node test.js",
@@ -24,6 +25,7 @@
   ],
   "devDependencies": {
     "bundt": "1.1.5",
+    "esbuild": "^0.25.4",
     "flitch": "0.7.3"
   },
   "keywords": [

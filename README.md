@@ -18,12 +18,12 @@ const people = {
 };
 ```
 
-We can use `from` or `merge` to produce a new object whilst leaving the original object intact. Both examples below are practically equivalent.
+We can use `produce` or `merge` to produce a new object whilst leaving the original object intact. Both examples below are practically equivalent.
 
 ```js
-import { from } from 'haaku';
+import { produce } from 'haaku';
 
-const updated = from(people, draft => {
+const updated = produce(people, draft => {
   draft.kevin.age = 30;
   draft.kevin.pets.push('trixie');
   delete draft.kevin.trash;
@@ -69,9 +69,9 @@ console.log('trash' in updated.kevin); // false
 
 ## API
 
-### `from(obj: Object, (draft: Proxy) => undefined): Object`
+### `produce(obj: Object, (draft: Proxy) => undefined): Object`
 
-`from` accepts two arguments:
+`produce` accepts two arguments:
 
 1. An object that will be used as the base; this object will remain unmutated
 2. A recipe function to produce a new object
@@ -119,15 +119,15 @@ console.log(a); // { nums: [1, 2, 3, 4] } The original object has been mutated! 
 console.log(b); // { nums: [1, 2, 3, 4] }
 ```
 
-In cases where you'd like the benefits of mutable objects without mutating the base object, you can nest `from`:
+In cases where you'd like the benefits of mutable objects without mutating the base object, you can nest `produce`:
 
 ```js
-import { from, merge } from 'haaku';
+import { produce, merge } from 'haaku';
 
 const a = { nums: [1, 2, 3] };
 
 const b = merge(a, {
-  nums: prev => from(prev, draft => {
+  nums: prev => produce(prev, draft => {
     draft.push(4);
   })
 });
