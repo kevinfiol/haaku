@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      klona:
+        specifier: ^2.0.6
+        version: 2.0.6
     devDependencies:
       bundt:
         specifier: 1.1.5
@@ -199,6 +203,10 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
+  klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+
   mk-dirs@3.0.0:
     resolution: {integrity: sha512-FEZDdUFb88hgdnsfAPa4VxcPVOd+8GyZ2jsI965im5bjBlBYhrvXuTqLka/UHa6YdUNN/kZBsVgofhZ3322AJw==}
     engines: {node: '>=6'}
@@ -340,6 +348,8 @@ snapshots:
   flitch@0.7.3: {}
 
   kleur@4.1.5: {}
+
+  klona@2.0.6: {}
 
   mk-dirs@3.0.0: {}
 

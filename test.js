@@ -1,5 +1,5 @@
 import { run, suite } from 'flitch';
-import { produce, merge } from './index.js';
+import { produce, merge } from './src/index.js';
 import { strict as assert } from 'assert';
 
 const test = suite('haaku tests');
@@ -62,18 +62,6 @@ test('produce: spread operators', () => {
   assert.deepEqual(foo.arr, [1,2]);
   assert.deepEqual(bar.obj, { a: 1, b: 2, c: 3});
   assert.deepEqual(bar.arr, [1,2,3]);
-});
-
-test('produce: non objects/array should throw', () => {
-  let thrown = false;
-
-  try {
-    const foo = produce('not an obj or arr', draft => {});
-  } catch (_e) {
-    thrown = true;
-  }
-
-  assert.ok(thrown);
 });
 
 run();

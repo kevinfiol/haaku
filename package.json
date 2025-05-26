@@ -5,34 +5,34 @@
   "license": "MIT",
   "repository": "https://github.com/kevinfiol/haaku",
   "type": "module",
-  "description": "immutable state management",
+  "description": "immutable state management utilities",
   "main": "dist/haaku.cjs",
-  "module": "dist/haaku.js",
+  "module": "src/index.js",
   "unpkg": "dist/haaku.min.js",
-  "types": "./index.d.ts",
+  "types": "./src/index.d.ts",
   "umd:name": "haaku",
   "scripts": {
     "test": "node test.js",
-    "build": "bundt index.js && node test.js",
+    "build": "node build.js && node test.js",
     "prepare": "npm run build"
   },
   "engines": {
-    "node": ">=12.x"
+    "node": ">=18.x"
   },
   "files": [
     "*.d.ts",
     "dist"
   ],
+  "dependencies": {
+    "klona": "^2.0.6"
+  },
   "devDependencies": {
-    "bundt": "1.1.5",
     "esbuild": "^0.25.4",
     "flitch": "0.7.3"
   },
   "keywords": [
     "vanillajs",
     "immutable",
-    "state",
-    "proxies",
-    "proxy"
+    "state"
   ]
 }
