@@ -7,9 +7,9 @@
   "type": "module",
   "description": "immutable state management utilities",
   "main": "dist/haaku.cjs",
-  "module": "src/index.js",
+  "module": "dist/index.js",
   "unpkg": "dist/haaku.min.js",
-  "types": "./src/index.d.ts",
+  "types": "dist/index.d.ts",
   "umd:name": "haaku",
   "scripts": {
     "test": "node test.js",
@@ -27,8 +27,7 @@
     "klona": "2.0.6"
   },
   "devDependencies": {
-    "esbuild": "^0.25.4",
-    "flitch": "0.7.3"
+    "esbuild": "^0.25.4"
   },
   "keywords": [
     "vanillajs",

@@ -1,5 +1,8 @@
 import { build } from 'esbuild';
 import { resolve } from 'node:path';
+import { copyFile, mkdir } from 'node:fs/promises';
+
+await mkdir('./dist', { recursive: true });
 
 const exports = {
   './src/index.js': {
@@ -19,7 +22,13 @@ const exports = {
   }
 };
 
-const jobs = [];
+const jobs = [
+  // src is already valid ESM
+  copyFile('./src/index.js', './dist/index.js'),
+  copyFile('./src/merge.js', './dist/merge.js'),
+  copyFile('./src/produce.js', './dist/produce.js'),
+  copyFile('./src/index.d.ts', './dist/index.d.ts')
+];
 
 for (const file in exports) {
   const entryPoints = [resolve(file)];

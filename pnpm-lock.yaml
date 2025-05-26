@@ -9,18 +9,12 @@ importers:
   .:
     dependencies:
       klona:
-        specifier: ^2.0.6
+        specifier: 2.0.6
         version: 2.0.6
     devDependencies:
-      bundt:
-        specifier: 1.1.5
-        version: 1.1.5
       esbuild:
         specifier: ^0.25.4
         version: 0.25.4
-      flitch:
-        specifier: 0.7.3
-        version: 0.7.3
 
 packages:
 
@@ -174,58 +168,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  acorn@8.14.1:
-    resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
-
-  buffer-from@1.1.2:
-    resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
-
-  bundt@1.1.5:
-    resolution: {integrity: sha512-ROl3LJ3giqU1n2rv4dRcyjUN6M3fA8vxPM7oU5+VFAAn38Z9nkbzhpLAykc4+qVz5GhaC8DgVnVy3Q8mjO1Gsg==}
-    engines: {node: '>=6'}
-    hasBin: true
-
-  commander@2.20.3:
-    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
-
   esbuild@0.25.4:
     resolution: {integrity: sha512-8pgjLUcUjcgDg+2Q4NYXnPbo/vncAY4UmyaCm0jZevERqCHZIaWwdJHkf8XQtu4AxSKCdvrUbT0XUr1IdZzI8Q==}
     engines: {node: '>=18'}
     hasBin: true
 
-  flitch@0.7.3:
-    resolution: {integrity: sha512-yMHHAMQGO3SjucHGV+gbDxiPhhSPkIq4Iq6WYg4jUdmiSgd/9qc7ea41mQenG8kk6x0zh0Npn2pdwCDPmJlm2A==}
-    engines: {node: '>=14.x'}
-
-  kleur@4.1.5:
-    resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
-    engines: {node: '>=6'}
-
   klona@2.0.6:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
-
-  mk-dirs@3.0.0:
-    resolution: {integrity: sha512-FEZDdUFb88hgdnsfAPa4VxcPVOd+8GyZ2jsI965im5bjBlBYhrvXuTqLka/UHa6YdUNN/kZBsVgofhZ3322AJw==}
-    engines: {node: '>=6'}
-
-  rewrite-imports@3.0.0:
-    resolution: {integrity: sha512-RClzg1cUfYLYkQadcrjgih8+CqJDKOP3OIWGkFE+e5n71085QnOwghzLPonEe1gG6iblCVJ8lHGFtd+n8wj3Hg==}
-    engines: {node: '>=6'}
-
-  source-map-support@0.5.21:
-    resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
-
-  source-map@0.6.1:
-    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
-    engines: {node: '>=0.10.0'}
-
-  terser@4.8.1:
-    resolution: {integrity: sha512-4GnLC0x667eJG0ewJTa6z/yXrbLGv80D9Ru6HIpCQmO+Q4PfEtBFi0ObSckqwL6VyQv/7ENJieXHo2ANmdQwgw==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
 
 snapshots:
 
@@ -304,19 +254,6 @@ snapshots:
   '@esbuild/win32-x64@0.25.4':
     optional: true
 
-  acorn@8.14.1: {}
-
-  buffer-from@1.1.2: {}
-
-  bundt@1.1.5:
-    dependencies:
-      kleur: 4.1.5
-      mk-dirs: 3.0.0
-      rewrite-imports: 3.0.0
-      terser: 4.8.1
-
-  commander@2.20.3: {}
-
   esbuild@0.25.4:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.25.4
@@ -345,26 +282,4 @@ snapshots:
       '@esbuild/win32-ia32': 0.25.4
       '@esbuild/win32-x64': 0.25.4
 
-  flitch@0.7.3: {}
-
-  kleur@4.1.5: {}
-
   klona@2.0.6: {}
-
-  mk-dirs@3.0.0: {}
-
-  rewrite-imports@3.0.0: {}
-
-  source-map-support@0.5.21:
-    dependencies:
-      buffer-from: 1.1.2
-      source-map: 0.6.1
-
-  source-map@0.6.1: {}
-
-  terser@4.8.1:
-    dependencies:
-      acorn: 8.14.1
-      commander: 2.20.3
-      source-map: 0.6.1
-      source-map-support: 0.5.21

@@ -1,8 +1,6 @@
-import { run, suite } from 'flitch';
-import { produce, merge } from './src/index.js';
+import test from 'node:test';
 import { strict as assert } from 'assert';
-
-const test = suite('haaku tests');
+import { produce, merge } from './src/index.js';
 
 test('produce: object equality', () => {
   const people = {
@@ -63,5 +61,3 @@ test('produce: spread operators', () => {
   assert.deepEqual(bar.obj, { a: 1, b: 2, c: 3});
   assert.deepEqual(bar.arr, [1,2,3]);
 });
-
-run();
