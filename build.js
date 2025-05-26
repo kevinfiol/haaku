@@ -23,7 +23,6 @@ const exports = {
 };
 
 const jobs = [
-  // src is already valid ESM
   copyFile('./src/index.js', './dist/index.js'),
   copyFile('./src/merge.js', './dist/merge.js'),
   copyFile('./src/produce.js', './dist/produce.js'),

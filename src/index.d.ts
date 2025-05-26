@@ -33,12 +33,23 @@ type Draft<T> = {
     : T[K];
 };
 
+// Helper type to compute intersection of all patches
+type MergePatches<Patches extends readonly any[]> = 
+  Patches extends readonly [infer First, ...infer Rest]
+    ? First & MergePatches<Rest>
+    : {};
+
+// Enhanced merge with inferred return type
+export function merge<
+  T extends object,
+  P extends readonly any[]
+>(
+  obj: T, 
+  ...patches: P
+): T & MergePatches<P>;
+
+// Enhanced produce with inferred return type
 export function produce<T extends object>(
   obj: T,
   fn: (draft: Draft<T>) => void
-): T;
-
-export function merge<T extends object>(
-  obj: T, 
-  ...patches: FlexiblePatch<T>[]
 ): T;
