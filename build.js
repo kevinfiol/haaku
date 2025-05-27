@@ -59,4 +59,5 @@ for (const file in exports) {
   }
 }
 
-await Promise.all(jobs);
+try { await Promise.all(jobs); }
+catch { process.exit(1); }
