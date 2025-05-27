@@ -24,6 +24,24 @@ test('produce: object equality', () => {
   assert.equal('trash' in updated.rafael, false, 'property should not exist in updated object')
 });
 
+test('produce: spread operators', () => {
+  const foo = {
+    obj: { a: 1, b: 2 },
+    arr: [1, 2]
+  };
+
+  const bar = produce(foo, draft => {
+    draft.obj = {...draft.obj, c: 3};
+    draft.arr = [...draft.arr, 3];
+  });
+
+  assert.deepEqual(foo.obj, { a: 1, b: 2 });
+  assert.deepEqual(foo.arr, [1,2]);
+  assert.deepEqual(bar.obj, { a: 1, b: 2, c: 3});
+  assert.deepEqual(bar.arr, [1,2,3]);
+});
+
+
 test('merge: object equality', () => {
   const people = {
     kevin: { age: 29, pets: ['maggie'] },
@@ -45,19 +63,14 @@ test('merge: object equality', () => {
   assert.equal('trash' in updated.rafael, false, 'property should not exist in updated object')
 });
 
-test('produce: spread operators', () => {
-  const foo = {
-    obj: { a: 1, b: 2 },
-    arr: [1, 2]
+test('merge: should be able to overwite non objects with objects', () => {
+  const people = {
+    kevin: { foo: 'bar' }
   };
 
-  const bar = produce(foo, draft => {
-    draft.obj = {...draft.obj, c: 3};
-    draft.arr = [...draft.arr, 3];
-  });
+  const updated = merge(people, { kevin: 2 });
 
-  assert.deepEqual(foo.obj, { a: 1, b: 2 });
-  assert.deepEqual(foo.arr, [1,2]);
-  assert.deepEqual(bar.obj, { a: 1, b: 2, c: 3});
-  assert.deepEqual(bar.arr, [1,2,3]);
+  assert.deepEqual(people, { kevin: { foo: 'bar' } });
+  assert.deepEqual(updated, { kevin: 2 });
+  assert.notEqual(people, updated);
 });
