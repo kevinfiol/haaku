@@ -1,5 +1,4 @@
 import { build } from 'esbuild';
-import { resolve } from 'node:path';
 import { copyFile, mkdir } from 'node:fs/promises';
 
 await mkdir('./dist', { recursive: true });
@@ -9,13 +8,13 @@ const exports = {
     cjs: {
       bundle: true,
       external: ['klona'],
-      outfile: resolve('./dist/haaku.cjs'),
+      outfile: './dist/haaku.cjs',
       platform: 'node',
     },
     iife: {
       bundle: true,
       minify: true,
-      outfile: resolve('./dist/haaku.min.js'),
+      outfile: './dist/haaku.min.js',
       platform: 'browser',
       globalName: 'haaku'
     }
@@ -30,7 +29,7 @@ const jobs = [
 ];
 
 for (const file in exports) {
-  const entryPoints = [resolve(file)];
+  const entryPoints = [file];
 
   for (const format in exports[file]) {
     const {

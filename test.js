@@ -1,5 +1,5 @@
 import test from 'node:test';
-import { strict as assert } from 'assert';
+import { strict as assert } from 'node:assert';
 import { produce, merge } from './src/index.js';
 
 test('produce: object equality', () => {

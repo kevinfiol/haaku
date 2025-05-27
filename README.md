@@ -10,7 +10,7 @@ npm install haaku
 
 ## API
 
-### `merge(obj: Object, ...patches: Object[]): Object`
+### `merge<T extends object>(obj: T, ...patches: Patch<T>[]): T`
 
 `merge` accepts two or more arguments:
 
@@ -50,7 +50,7 @@ console.log('trash' in people.kevin); // true
 console.log(people.rafael === updated.rafael); // true
 ```
 
-### `produce(obj: Object, (draft: Proxy) => undefined): Object`
+### `produce<T extends object>(obj: T, (draft: Draft<T>) => void): T`
 
 `produce` accepts two arguments:
 
