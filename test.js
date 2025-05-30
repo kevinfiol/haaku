@@ -74,3 +74,49 @@ test('merge: should be able to overwite non objects with objects', () => {
   assert.deepEqual(updated, { kevin: 2 });
   assert.notEqual(people, updated);
 });
+
+test('produce + merge: arrays', () => {
+  const a = { nums: [1, 2, 3] };
+
+  const b = merge(a, {
+    nums: prev => produce(prev, draft => {
+      draft.push(4);
+    })
+  });
+
+  assert.deepEqual(a, { nums: [1, 2, 3] });
+  assert.deepEqual(b, { nums: [1, 2, 3, 4] });
+  assert.notEqual(a, b);
+  assert.notEqual(a.nums, b.nums);
+});
+
+test('merge: does not merge arrays', () => {
+  const a = { nums: [1, 2, 3] };
+  const b = merge(a, { nums: [1, 2] });
+
+  assert.deepEqual(a, { nums: [1, 2, 3] });
+  assert.deepEqual(b, { nums: [1, 2] });
+});
+
+test('produce: arrays', () => {
+  const a = [1, 2, 3];
+  const b = produce(a, draft => {
+    draft.push(4);
+    draft[0] = 100;
+  });
+
+  assert.deepEqual(a, [1, 2, 3]);
+  assert.deepEqual(b, [100, 2, 3, 4]);
+});
+
+test('produce: no structural sharing', () => {
+  const a = { foo: [1], bar: { baz: 10 } };
+  const b = produce(a, draft => {
+    draft.foo = [1, 2, 3];
+  });
+
+  assert.notEqual(a.foo, b.foo);
+  assert.notEqual(a.bar, b.bar);
+  assert.deepEqual(a, { foo: [1], bar: { baz: 10 } });
+  assert.deepEqual(b, { foo: [1, 2, 3], bar: { baz: 10 } });
+});
